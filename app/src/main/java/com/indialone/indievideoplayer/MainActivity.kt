@@ -20,7 +20,7 @@ import java.io.File
 class MainActivity : AppCompatActivity(), OnSelectListener {
 
     private lateinit var mBinding: ActivityMainBinding
-    private var videoFiles = ArrayList<File>()
+    private lateinit var videoFiles: ArrayList<File>
     private lateinit var videoRvAdapter: VideoRvAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), OnSelectListener {
                 } else {
                     if (videoFile.name.endsWith(".mp4")
                         || videoFile.name.endsWith(".mkv")
-                        || videoFile.name.endsWith  (".mp3")
+                        || videoFile.name.endsWith(".mp3")
                         || videoFile.name.endsWith(".wav")
                     ) {
                         myVideos.add(videoFile)
@@ -84,7 +84,8 @@ class MainActivity : AppCompatActivity(), OnSelectListener {
     }
 
     private fun displayVideoFiles() {
-        videoFiles = findVideoFiles(Environment.getExternalStorageDirectory())
+        videoFiles = ArrayList()
+        videoFiles.addAll(findVideoFiles(Environment.getExternalStorageDirectory()))
         videoRvAdapter = VideoRvAdapter(this, videoFiles, this)
         videoRvAdapter.setHasStableIds(true)
         mBinding.rvVideos.apply {
